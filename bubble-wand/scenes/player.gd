@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+@export var bubble_scene: PackedScene
 const MAX_SPEED = 400.0
 const GROUND_ACCELERATION = 2200.0
 const AIR_ACCELERATION = 1200.0
@@ -65,5 +65,21 @@ func _physics_process(delta: float) -> void:
 			0,
 			friction * delta
 		)
+	if Input.is_action_just_pressed("Shoot"):
+		shoot_bubble()
 
 	move_and_slide()
+	
+func shoot_bubble() -> void:
+	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+
+	# Don't shoot if no direction is being held
+	if direction == Vector2.ZERO:
+		return
+
+	var bubble = bubble_scene.instantiate()
+
+	bubble.global_position = global_position
+	bubble.direction = direction
+
+	get_parent().add_child(bubble)
