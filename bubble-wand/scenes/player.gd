@@ -42,9 +42,10 @@ func _physics_process(delta: float) -> void:
 	# Cut the jump short when the button is released
 	if Input.is_action_just_released("jump") and velocity.y < JUMP_CUTOFF:
 		velocity.y = JUMP_CUTOFF
-
-	# Get input direction
-	var direction := Input.get_axis("ui_left", "ui_right")
+	# Get input direction.
+	var direction := Input.get_axis("left", "right")
+	if direction == 0:
+		direction = Input.get_axis("ui_left", "ui_right")
 
 	if direction != 0:
 		var acceleration = GROUND_ACCELERATION if is_on_floor() else AIR_ACCELERATION
