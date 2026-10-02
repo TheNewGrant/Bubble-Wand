@@ -384,3 +384,4 @@ tile_set = SubResource("TileSet_vf4q7")
 
 [node name="Player" parent="." unique_id=1032884401 instance=ExtResource("1_0wfyh")]
 position = Vector2(201, 401)
+GRAVITY = 1000
