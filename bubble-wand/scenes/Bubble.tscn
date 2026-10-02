@@ -4,13 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://cjpb7vdvyiqju" path="res://assets/Bubble.png" id="2_pvjwk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rh3xb"]
+radius = 5.34374
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eae6q"]
+radius = 5.34374
 
 [node name="Bubble" type="CharacterBody2D" unique_id=443445720]
 scale = Vector2(3, 3)
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_pvjwk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1026979421]
 shape = SubResource("CircleShape2D_rh3xb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=819048603]
+scale = Vector2(0.66, 0.66)
 texture = ExtResource("2_pvjwk")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1098124684]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=344835211]
+shape = SubResource("CircleShape2D_eae6q")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
