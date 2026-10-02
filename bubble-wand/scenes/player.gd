@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_CUTOFF
 	
 	# Get input direction.
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("left", "right")
 
 	if direction:
 		if sign(velocity.x) != sign(direction):
@@ -30,5 +30,4 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, MAX_SPEED * 2 * delta)
 
-	print(velocity.x)
 	move_and_slide()
