@@ -73,7 +73,6 @@ func _physics_process(delta: float) -> void:
 		facing_direction = sign(direction)
 		if direction == 0:
 			direction = Input.get_axis("ui_left", "ui_right")
-		print(facing_direction)
 	
 	if direction != 0:
 		var acceleration = GROUND_ACCELERATION if is_on_floor() else AIR_ACCELERATION
@@ -113,7 +112,7 @@ func shoot_bubble() -> void:
 	var angle = direction.angle()
 	var snapped_angle = round(angle / (PI / 4.0)) * (PI / 4.0)
 	direction = Vector2.from_angle(snapped_angle)
-	#player gets a slight acceleration boost
+	#player gets a slight recoil
 	velocity -= direction * 100
 	print("Shoot direction: ", direction)
 	
@@ -123,7 +122,7 @@ func shoot_bubble() -> void:
 		bubble.queue_free()
 	var bubble = bubble_scene.instantiate()
 
-	bubble.global_position = global_position + direction * 80.0
+	bubble.global_position = global_position + direction * 30.0
 	bubble.direction = direction
 
 	get_parent().add_child(bubble)
