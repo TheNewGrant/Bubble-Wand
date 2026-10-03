@@ -113,7 +113,7 @@ func shoot_bubble() -> void:
 	var snapped_angle = round(angle / (PI / 4.0)) * (PI / 4.0)
 	direction = Vector2.from_angle(snapped_angle)
 	#player gets a slight recoil
-	velocity -= direction * 100
+	velocity -= direction * 200
 	print("Shoot direction: ", direction)
 	
 

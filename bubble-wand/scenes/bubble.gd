@@ -35,40 +35,50 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		var collision_shape = body.get_node("CollisionShape2D")
-		var half_width = collision_shape.shape.size.x * collision_shape.scale.x / 2.0
-		var half_height = collision_shape.shape.size.y * collision_shape.scale.y / 2.0
-		var player_left = body.global_position.x - half_width
-		var player_right = body.global_position.x + half_width
-		var player_top = body.global_position.y - half_height
-		var player_bottom = body.global_position.y + half_height
+		# Player collision rectangle
+		var player_collision = body.get_node("CollisionShape2D")
+		var player_shape = player_collision.shape
 
-		# Find the closest point on the player's collision box
-		# to the center of the bubble.
-		var closest_x = clamp(global_position.x, player_left, player_right)
-		var closest_y = clamp(global_position.y, player_top, player_bottom)
+		var player_half_width = player_shape.size.x * player_collision.scale.x / 2.0
+		var player_half_height = player_shape.size.y * player_collision.scale.y / 2.0
 
-		var difference = Vector2(
-			closest_x - global_position.x,
-			closest_y - global_position.y
-		)
+		var player_left = body.global_position.x - player_half_width
+		var player_right = body.global_position.x + player_half_width
+		var player_top = body.global_position.y - player_half_height
+		var player_bottom = body.global_position.y + player_half_height
 
-		# Determine which part of the bubble was touched
-		if abs(difference.y) > abs(difference.x):
-			if difference.y < 0:
-				# Top of bubble
+		# Bubble collision rectangle
+		var bubble_shape = $Area2D/CollisionShape2D.shape
+		var bubble_half_width = bubble_shape.size.x / 2.0
+		var bubble_half_height = bubble_shape.size.y / 2.0
+
+		var bubble_left = global_position.x - bubble_half_width
+		var bubble_right = global_position.x + bubble_half_width
+		var bubble_top = global_position.y - bubble_half_height
+		var bubble_bottom = global_position.y + bubble_half_height
+
+		# Calculate how much the rectangles overlap
+		var overlap_x = min(player_right, bubble_right) - max(player_left, bubble_left)
+		var overlap_y = min(player_bottom, bubble_bottom) - max(player_top, bubble_top)
+
+		# Smaller overlap tells us which side was hit
+		if overlap_y < overlap_x:
+			if body.global_position.y < global_position.y:
+				# Player hit the top
 				print("hit top")
 				body.bounce_on_bubble()
 			else:
-				# Bottom of bubble
+				# Player hit the bottom
 				print("hit bottom")
-				body.velocity.y += 600
+				body.velocity.y = 100
 		else:
-			# Side of bubble
-			print("hit side")
-
 			if body.global_position.x < global_position.x:
-				body.velocity.x -= 600
+				# Player hit the left side
+				print("hit left")
+				body.velocity.x = velocity.x / 2 - 200
 			else:
-				body.velocity.x += 600
+				# Player hit the right side
+				print("hit right")
+				body.velocity.x = velocity.x / 2 + 200
+
 		queue_free()
