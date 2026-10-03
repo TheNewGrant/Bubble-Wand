@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 500.0
+const SPEED = 600.0
 const PLAYER_IMMUNITY_TIME = 0.1
 
 var direction := Vector2.ZERO
