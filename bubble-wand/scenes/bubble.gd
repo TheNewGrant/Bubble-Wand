@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-const SPEED = 600.0
-const PLAYER_IMMUNITY_TIME = 0.2
+@export var SPEED = 600.0
+const PLAYER_IMMUNITY_TIME = 0.15
 
 var direction := Vector2.ZERO
 var immunity_timer := PLAYER_IMMUNITY_TIME
@@ -17,13 +17,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Give the player a short period where the bubble cannot collide
 	# with them after being spawned.
+	var current_speed=SPEED
 	if immunity_timer > 0:
+		current_speed += 100
 		immunity_timer -= delta
-		
 		if immunity_timer <= 0:
 			$Area2D/CollisionShape2D.disabled = false
 
-	velocity = direction * SPEED
+	velocity = direction * current_speed
 	var collision = move_and_collide(velocity * delta)
 
 	if collision:
