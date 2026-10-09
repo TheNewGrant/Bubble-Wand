@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bex05mtdwthxj" path="res://scenes/Player.tscn" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dvlksd4jxhle6" path="res://scenes/Bubble.tscn" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dgfvbfkgvfx5s" path="res://assets/spritesheet.png" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://duxc1mn81j7i0" path="res://scenes/Environment/BubbleShooter.tscn" id="4_jyhfs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jyhfs"]
 texture = ExtResource("3_sugp2")
@@ -387,4 +388,8 @@ tile_set = SubResource("TileSet_vf4q7")
 position = Vector2(115, 384)
 collision_layer = 1
 bubble_scene = ExtResource("3_jyhfs")
-GRAVITY = 1400
+
+[node name="BShooter" parent="." unique_id=1575682664 instance=ExtResource("4_jyhfs")]
+position = Vector2(674, 827)
+shoot_delay = 1
+shoot_on_start = true

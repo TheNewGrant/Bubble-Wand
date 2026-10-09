@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://duxc1mn81j7i0"]
+
+[ext_resource type="Script" uid="uid://csgsi33hsxv12" path="res://scenes/Environment/BubbleShooter.gd" id="1_mge3e"]
+[ext_resource type="Texture2D" uid="uid://d2rotu2c4fr20" path="res://assets/BubbleShooter.png" id="2_b47il"]
+[ext_resource type="PackedScene" uid="uid://dvlksd4jxhle6" path="res://scenes/Bubble.tscn" id="2_eyyc4"]
+
+[node name="BShooter" type="Node2D" unique_id=1575682664]
+script = ExtResource("1_mge3e")
+projectile = ExtResource("2_eyyc4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1854540762]
+scale = Vector2(4, 4)
+texture = ExtResource("2_b47il")
+hframes = 2
+
+[node name="Delay" type="Timer" parent="." unique_id=196653779]
+
+[node name="SpawnLocation" type="Marker2D" parent="." unique_id=781467955]
+position = Vector2(0, -27)
+
+[connection signal="timeout" from="Delay" to="." method="_on_delay_timeout"]
